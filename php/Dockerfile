@@ -19,11 +19,15 @@ RUN apt update && apt install -y \
     autoconf \
     g++ \
     make \
-    cups \
+    # cups \
+    cups-bsd \
+    # lpr \
     zip \
     unzip \
     git \
-    net-tools
+    net-tools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd \
     --enable-gd \
@@ -45,16 +49,15 @@ RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-inte
 # RUN addgroup -S cups && adduser -S -G cups cups
 RUN groupadd --system cups && useradd --system --gid cups cups
 
-
 # Create necessary directories and set permissions
-RUN mkdir -p /var/run/cups /var/cache/cups /var/log/cups
-RUN chown -R cups:cups /etc/cups /var/run/cups /var/cache/cups /var/log/cups
+# RUN mkdir -p /var/run/cups /var/cache/cups /var/log/cups
+# RUN chown -R cups:cups /etc/cups /var/run/cups /var/cache/cups /var/log/cups
 
 # Copy CUPS configuration files if needed (optional)
 # COPY cups.conf /etc/cups/cupsd.conf
 
 # Expose CUPS port
-EXPOSE 631
+# EXPOSE 631
 
 # Start CUPS service
-CMD ["/usr/sbin/cupsd", "-f"]
+# CMD ["/usr/sbin/cupsd", "-f"]
