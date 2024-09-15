@@ -65,7 +65,6 @@ class BrosurpromoController extends Controller
 
 	public function actionUploadBrosur()
 	{
-		require_once __DIR__ . '/../../vendor/autoload.php';
 		// echo ('Dari upload Brosur');
 		// echo '<pre>';
 		// print_r($_FILES);
@@ -183,7 +182,6 @@ class BrosurpromoController extends Controller
 
 	public function actionUploadLogo()
 	{
-		require_once __DIR__ . '/../../vendor/autoload.php';
 		// echo ('Dari upload Logo');
 		// echo '<pre>';
 		// print_r($_FILES);
