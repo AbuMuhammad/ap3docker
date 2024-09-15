@@ -368,7 +368,7 @@ class PenjualanController extends Controller
 
     public function formatHargaJualRekomendasi($data)
     {
-        return number_format($data->harga_jual_rekomendasi, 0, ',', '.');
+        return number_format($data->harga_jual_rekomendasi ?? 0, 0, ',', '.');
     }
 
     public function tampilkanHargaBeli($data)
