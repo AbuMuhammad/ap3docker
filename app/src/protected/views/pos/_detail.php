@@ -59,7 +59,7 @@ $this->widget('BGridView', array(
             'headerHtmlOptions' => array('class' => 'rata-kanan show-for-large-up'),
             'htmlOptions' => array('class' => 'rata-kanan show-for-large-up'),
             'value' => function ($data) {
-                return rtrim(rtrim(number_format($data->diskon, 2, ',', '.'), '0'), ',');
+                return rtrim(rtrim(number_format($data->diskon ?? 0, 2, ',', '.'), '0'), ',');
             }
         ),
         /*
