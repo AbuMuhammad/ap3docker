@@ -306,7 +306,7 @@ class Akm extends Penjualan
                 ->from(AkmDetail::model()->tableName())
                 ->where('akm_id=:akmId', array(':akmId' => $this->id))
                 ->queryRow();
-        return $detail['total'];
+        return $detail['total'] ?? 0;
     }
 
     /**
@@ -457,7 +457,7 @@ class Akm extends Penjualan
                 'akmId' => $this->id
             ));
 
-            foreach ($tabelAkmDetail as $detail) {
+            foreach ($akmDetails as $detail) {
                 $barang = Barang::model()->findByPk($detail->barang_id);
                 $this->tambahBarangProc($barang, $detail->qty);
             }
