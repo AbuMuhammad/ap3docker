@@ -34,6 +34,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install pdo pdo_mysql gd mbstring curl exif pcntl bcmath xml zip
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
+WORKDIR /var/www/html
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 COPY ./app/composer.* ./
 RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
