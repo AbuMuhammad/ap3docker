@@ -70,7 +70,7 @@ class CustomerdisplayController extends Controller
         // $tahun    = date('Y');
         // $bulan    = date('n');
         $periode  = date('Yn');
-        $dir      = __DIR__ . '/../../../assets/';
+        $dir      = __DIR__ . '/../../../../public/assets/';
         $fileName = "jadwalsholat_{$periode}.json";
         $file     = $dir . $fileName;
 
