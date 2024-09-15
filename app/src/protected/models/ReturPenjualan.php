@@ -268,7 +268,7 @@ class ReturPenjualan extends CActiveRecord
                 ->where('retur_penjualan_id=:returPenjualanId', [':returPenjualanId' => $this->id])
                 ->queryRow();
 
-        return $detail['total'];
+        return $detail['total'] ?? 0;
         /*
           $pembelian = Yii::app()->db->createCommand("select sum(rpd.qty * pd.harga_jual) total
           from retur_penjualan_detail rpd

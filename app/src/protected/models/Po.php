@@ -249,7 +249,7 @@ class Po extends CActiveRecord
             ->from(PoDetail::model()->tableName())
             ->where('po_id=:poId AND status=:sOrder', [':poId' => $this->id, ':sOrder' => PoDetail::STATUS_ORDER])
             ->queryRow();
-        return $po['total'];
+        return $po['total'] ?? 0;
     }
 
     /**

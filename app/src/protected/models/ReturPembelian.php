@@ -258,7 +258,7 @@ class ReturPembelian extends CActiveRecord
 										where retur_pembelian_id = :returPembelianId')
             ->bindValue(':returPembelianId', $this->id)
             ->queryRow();
-        return $pembelian['total'];
+        return $pembelian['total'] ?? 0;
     }
 
     /*

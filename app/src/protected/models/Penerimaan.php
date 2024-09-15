@@ -240,7 +240,7 @@ class Penerimaan extends CActiveRecord
                 ->from(PenerimaanDetail::model()->tableName())
                 ->where('penerimaan_id=:penerimaanId', array(':penerimaanId' => $this->id))
                 ->queryRow();
-        return $pengeluaran['total'];
+        return $pengeluaran['total'] ?? 0;
     }
 
     /**

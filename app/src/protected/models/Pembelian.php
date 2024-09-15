@@ -261,7 +261,7 @@ class Pembelian extends CActiveRecord
                 ->from(PembelianDetail::model()->tableName())
                 ->where('pembelian_id=:pembelianId', array(':pembelianId' => $this->id))
                 ->queryRow();
-        return $pembelian['total'];
+        return $pembelian['total'] ?? 0;
     }
 
     /**

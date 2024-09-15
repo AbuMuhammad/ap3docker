@@ -979,7 +979,7 @@ class Penjualan extends CActiveRecord
             ->from(PenjualanDetail::model()->tableName())
             ->where('penjualan_id=:penjualanId', [':penjualanId' => $this->id])
             ->queryRow();
-        return $detail['total'];
+        return $detail['total'] ?? 0;
     }
 
     /**

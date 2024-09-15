@@ -243,7 +243,7 @@ class Pengeluaran extends CActiveRecord
                 ->from(PengeluaranDetail::model()->tableName())
                 ->where('pengeluaran_id=:pengeluaranId', array(':pengeluaranId' => $this->id))
                 ->queryRow();
-        return $pengeluaran['total'];
+        return $pengeluaran['total'] ?? 0;
     }
 
     /**

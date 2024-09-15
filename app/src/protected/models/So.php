@@ -318,7 +318,7 @@ class So extends Penjualan
                 ->from(SoDetail::model()->tableName())
                 ->where('so_id=:orderId', [':orderId' => $this->id])
                 ->queryRow();
-        return $detail['total'];
+        return $detail['total'] ?? 0;
     }
 
     /**
