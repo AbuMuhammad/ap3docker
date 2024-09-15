@@ -1693,7 +1693,7 @@ class Penjualan extends CActiveRecord
             $strBarang   = str_pad(trim(substr($detail['nama'], 0, 28)), 28, ' '); //Nama Barang hanya diambil 28 char pertama
             $strQty      = str_pad($detail['qty'], 4, ' ', STR_PAD_LEFT);
             $strHarga    = str_pad(number_format($detail['harga_jual'] + $detail['diskon'], 0, ',', '.'), 8, ' ', STR_PAD_LEFT);
-            $strDiskon   = str_pad(number_format($detail['diskon'], 0, ',', '.'), 6, ' ', STR_PAD_LEFT);
+            $strDiskon   = str_pad(number_format($detail['diskon'] ?? 0, 0, ',', '.'), 6, ' ', STR_PAD_LEFT);
             $strHargaNet = str_pad(number_format($detail['harga_jual'], 0, ',', '.'), 8, ' ', STR_PAD_LEFT);
 
             $subTotalDiskon = $detail['qty'] * $detail['diskon'];
@@ -1758,7 +1758,7 @@ class Penjualan extends CActiveRecord
         $struk .= $strukFooter1;
         $struk .= str_pad($txtTotal, $jumlahKolom - strlen($strukFooter1) - 1, ' ', STR_PAD_LEFT) . PHP_EOL;
         $struk .= $strukFooter2;
-        $struk .= str_pad($txtBayar, $jumlahKolom - strlen($strukFooter2) - 1, ' ', STR_PAD_LEFT) . PHP_EOL;
+        $struk .= str_pad($txtBayar, $jumlahKolom - strlen($strukFooter2 ?? '') - 1, ' ', STR_PAD_LEFT) . PHP_EOL;
         $struk .= str_pad($txtKbali, $jumlahKolom - 1, ' ', STR_PAD_LEFT) . PHP_EOL;
 
         if ($totalDiskon > 0) {
@@ -1781,7 +1781,7 @@ class Penjualan extends CActiveRecord
         $signatureHead1 = '        Hormat Kami';
         $signatureHead2 = 'Pelanggan';
 
-        $struk .= $signatureHead1 . str_pad($signatureHead2, 28 - (strlen($signatureHead2) / 2) + strlen($signatureHead2), ' ', STR_PAD_LEFT) . PHP_EOL;
+        $struk .= $signatureHead1 . str_pad($signatureHead2, 28 - (int)(strlen($signatureHead2) / 2) + strlen($signatureHead2), ' ', STR_PAD_LEFT) . PHP_EOL;
         $struk .= PHP_EOL . PHP_EOL . PHP_EOL . PHP_EOL;
         $struk .= '     (                )               (                )' . PHP_EOL;
         $rowCount += 7;
