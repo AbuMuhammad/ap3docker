@@ -58,7 +58,7 @@
                     <ul class="title-area">
                         <li class="name">
                             <h1>
-                                <a href="<?php echo Yii::app()->baseUrl; ?>">
+                                <a href="<?= $this->createUrl('/app') ?>">
                                     <?php //echo CHtml::encode(Yii::app()->name); ?>
                                     <img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo.png" alt="logo" />
                                 </a>

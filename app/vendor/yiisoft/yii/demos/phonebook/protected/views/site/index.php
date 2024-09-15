@@ -24,7 +24,7 @@ installed Adobe Flash Player version 9 or above.
 <div>
 <?php if(extension_loaded('soap')): ?>
 <?php $this->widget('CFlexWidget',array(
-	'baseUrl'=>Yii::app()->baseUrl.'/flex/bin',
+	'baseUrl'=>$this->createUrl('/app').'/flex/bin',
 	'name'=>'phonebook',
 	'width'=>'800',
 	'height'=>'300',

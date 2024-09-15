@@ -68,7 +68,7 @@ $this->boxHeader['normal'] = "Penjualan: {$model->nomor}";
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/jquery.gritter.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/vendor/jquery.gritter.min.js', CClientScript::POS_HEAD);
 
-Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/bindwithdelay.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScriptFile($this->createUrl('/app') . '/js/bindwithdelay.js', CClientScript::POS_HEAD);
 ?>
 <script>
     function totalUangDibayar() {

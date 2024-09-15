@@ -235,6 +235,8 @@ class BarangController extends Controller
 
         // $configShowQtyReturBeli = Config::model()->find("nama='barang.showstokreturbeli'");
         // $showRB = $configShowQtyReturBeli->nilai == 1 ? true : false;
+        Yii::log('Base Url: '.$this->createUrl('/app'));
+        Yii::log('createUrl: '.$this->createUrl('/app/index'));
         $this->render('index', [
             'model' => $model,
             // 'showQtyReturBeli' => $showRB,

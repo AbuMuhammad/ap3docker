@@ -662,14 +662,16 @@ class PembelianController extends Controller
          */
 
         $listNamaKertas = Pembelian::listNamaKertas();
-        $mpdf           = new \Mpdf\Mpdf(array_merge(
+        $cfg            = array_merge(
             [
-                'mode'     => 'utf-8',
-                'format'   => $listNamaKertas[$kertas],
-                'tempDir'  => __DIR__ . '/../runtime/',
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
             ],
             CustomFontPdfHelper::config()
-        ));
+        );
+
+        $mpdf = new \Mpdf\Mpdf($cfg);
 
         $viewCetak = '_pdf';
         if ($draft) {

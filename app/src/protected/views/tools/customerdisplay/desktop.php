@@ -13,7 +13,7 @@ if (!empty($logo)) {
 <div class="row" style="height: 25vh">
     <div class="medium-8 columns box kiri_atas">
         <div id="welcome" class="idle">
-            <a href="<?php echo Yii::app()->baseUrl; ?>">
+            <a href="<?php echo $this->createUrl('/app'); ?>">
                 <img src="<?= $logoSrc ?>" alt="logo" />
             </a>
             <h1>Selamat datang di <?= $namaToko ?></h1>

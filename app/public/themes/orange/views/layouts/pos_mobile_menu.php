@@ -45,7 +45,7 @@
                 </section>
 
                 <section class="middle tab-bar-section" style="text-align: left">
-                    <span class="title"><a href="<?php echo Yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo.png" alt="logo" /></a></span>
+                    <span class="title"><a href="<?php echo $this->createUrl('/app'); ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo.png" alt="logo" /></a></span>
                     <span class="right" style="font-size: 0.65em"><i class="fa fa-user fa-fw"></i> <?php echo Yii::app()->user->namaLengkap; ?><?php // &nbsp;&nbsp;<i class="fa fa-clock-o fa-fw"></i> <span id="clock">00:00:00</span>
                                                                                                                                                 ?>
                     </span>
