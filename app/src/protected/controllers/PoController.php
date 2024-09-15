@@ -35,7 +35,7 @@ class PoController extends Controller
             'poDetail'       => $poDetail,
             'printerPo'      => $printerPo,
             'kertasUntukPdf' => $kertasUntukPdf,
-            'aPlsParam'      => $aPlsParam
+            'aPlsParam'      => $aPlsParam,
         ]);
     }
 
@@ -270,8 +270,8 @@ class PoController extends Controller
         $return = '';
         if (isset($data->nomor)) {
             $return = '<a href="' .
-                $this->createUrl('view', ['id' => $data->id]) . '">' .
-                $data->nomor . '</a>';
+            $this->createUrl('view', ['id' => $data->id]) . '">' .
+            $data->nomor . '</a>';
         }
         return $return;
     }
@@ -285,8 +285,8 @@ class PoController extends Controller
     {
         if (!isset($data->nomor)) {
             $return = '<a href="' .
-                $this->createUrl('ubah', ['id' => $data->id, 'uid' => $data->updated_by]) . '">' .
-                $data->tanggal . '</a>';
+            $this->createUrl('ubah', ['id' => $data->id, 'uid' => $data->updated_by]) . '">' .
+            $data->tanggal . '</a>';
         } else {
             $return = $data->tanggal;
         }
@@ -570,10 +570,19 @@ class PoController extends Controller
         /*
          * Persiapan render PDF
          */
-        // require_once __DIR__ . '/../vendor/autoload.php';
 
         $listNamaKertas = Po::listNamaKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+
+        $mpdf = new \Mpdf\Mpdf($cfg);
 
         $viewCetak = '_pdf';
         if ($draft) {
@@ -687,7 +696,7 @@ class PoController extends Controller
             'rak_id'       => $rakId,
             'struktur_lv1' => $strukLv1,
             'struktur_lv2' => $strukLv2,
-            'struktur_lv3' => $strukLv3
+            'struktur_lv3' => $strukLv3,
         ];
         $plsParam = PoAnalisaplsParam::model()->find('po_id=:poId', [':poId' => $model->id]);
         if (is_null($plsParam)) {
@@ -757,7 +766,7 @@ class PoController extends Controller
             $ak = 'accesskey="r"';
         }
         return '<a href="#" class="editable-order" data-type="text" data-pk="' . $data->id . '" ' . $ak . ' data-url="' .
-            Yii::app()->controller->createUrl('inputorder') . '">' . $data->qty_order . '</a>';
+        Yii::app()->controller->createUrl('inputorder') . '">' . $data->qty_order . '</a>';
     }
 
     public function renderTombolSetOrder($data, $row)
@@ -889,7 +898,7 @@ class PoController extends Controller
             $ak = 'accesskey="r"';
         }
         return '<a href="#" class="editable-order" data-type="text" data-pk="' . $data->id . '" ' . $ak . ' data-url="' .
-            Yii::app()->controller->createUrl('editrestockmin') . '">' . $data->restock_min . '</a>';
+        Yii::app()->controller->createUrl('editrestockmin') . '">' . $data->restock_min . '</a>';
     }
 
     public function actionEditRestockMin()

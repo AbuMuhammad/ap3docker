@@ -286,8 +286,8 @@ class PenjualanController extends Controller
         $return = '';
         if (isset($data->nomor)) {
             $return = '<a href="' .
-            $this->createUrl('view', ['id' => $data->id]) . '">' .
-            $data->nomor . '</a>';
+                $this->createUrl('view', ['id' => $data->id]) . '">' .
+                $data->nomor . '</a>';
         }
         return $return;
     }
@@ -301,8 +301,8 @@ class PenjualanController extends Controller
     {
         if (!isset($data->nomor)) {
             $return = '<a href="' .
-            $this->createUrl('ubah', ['id' => $data->id, 'uid' => $data->updated_by]) . '">' .
-            $data->tanggal . '</a>';
+                $this->createUrl('ubah', ['id' => $data->id, 'uid' => $data->updated_by]) . '">' .
+                $data->tanggal . '</a>';
         } else {
             $return = $data->tanggal;
         }
@@ -418,8 +418,16 @@ class PenjualanController extends Controller
         /*
          * Persiapan render PDF
          */
-        // require_once __DIR__ . '/../vendor/autoload.php';
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => 'A4',
+                'tempDir' => __DIR__ . '/../runtime/'
+            ],
+            CustomFontPdfHelper::config()
+        );
+
+        $mpdf = new \Mpdf\Mpdf($cfg);
 
         $viewInvoice = '_invoice';
         if ($draft) {

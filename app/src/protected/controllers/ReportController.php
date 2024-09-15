@@ -180,8 +180,8 @@ class ReportController extends Controller
         $return = '';
         if (isset($data->nama)) {
             $return = '<a href="' .
-                $this->createUrl('pilihuser', ['id' => $data->id]) .
-                '" class="pilih user">' . $data->nama_lengkap . '</a>';
+            $this->createUrl('pilihuser', ['id' => $data->id]) .
+            '" class="pilih user">' . $data->nama_lengkap . '</a>';
         }
         return $return;
     }
@@ -358,7 +358,18 @@ class ReportController extends Controller
 
         // require_once __DIR__ . '/../vendor/autoload.php';
         $listNamaKertas = ReportHarianForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg            = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
         $mpdf->WriteHTML($this->renderPartial('harian_detail_pdf', [
             'report' => $report,
         ], true));
@@ -376,7 +387,17 @@ class ReportController extends Controller
          */
         // require_once __DIR__ . '/../vendor/autoload.php';
         $listNamaKertas = ReportHarianForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
         $mpdf->WriteHTML($this->renderPartial('harian_detail_pdf_2', [
             'report' => $report,
         ], true));
@@ -452,7 +473,17 @@ class ReportController extends Controller
         // require_once __DIR__ . '/../vendor/autoload.php';
         $waktuCetak     = date('dmY His');
         $listNamaKertas = ReportPoinMemberForm::listNamaKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$model->kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$model->kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$model->kertas], 'tempDir' => __DIR__ . '/../runtime/']);
         $mpdf->WriteHTML($this->renderPartial('_poin_member_pdf', [
             'report'     => $report,
             'config'     => $branchConfig,
@@ -574,7 +605,17 @@ class ReportController extends Controller
         // require_once __DIR__ . '/../vendor/autoload.php';
         $waktuCetak     = date('dmY His');
         $listNamaKertas = ReportTopRankForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
         $mpdf->WriteHTML($this->renderPartial('_toprank_pdf', [
             'model'      => $model,
             'report'     => $report,
@@ -604,15 +645,15 @@ class ReportController extends Controller
 
         $text      = $model->toCsv($hideOpenTxn);
         $namaStruk = '';
-        if (!empty($model->strukLv1)) :
+        if (!empty($model->strukLv1)):
             $strukLv1 = StrukturBarang::model()->findByPk($model->strukLv1);
             $namaStruk .= $strukLv1->nama;
         endif;
-        if (!empty($model->strukLv2)) :
+        if (!empty($model->strukLv2)):
             $strukLv2 = StrukturBarang::model()->findByPk($model->strukLv2);
             $namaStruk .= '_' . $strukLv2->nama;
         endif;
-        if (!empty($model->strukLv3)) :
+        if (!empty($model->strukLv3)):
             $strukLv3 = StrukturBarang::model()->findByPk($model->strukLv3);
             $namaStruk .= '_' . $strukLv3->nama;
         endif;
@@ -703,7 +744,17 @@ class ReportController extends Controller
         $waktu          = date('Y-m-d H:i:s');
         $waktuCetak     = date_format(date_create_from_format('Y-m-d H:i:s', $waktu), 'dmY His');
         $listNamaKertas = ReportHutangPiutangForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
         $mpdf->WriteHTML($this->renderPartial('_hutangpiutang_pdf', [
             'model'      => $model,
             'report'     => $report,
@@ -806,8 +857,8 @@ class ReportController extends Controller
         $return = '';
         if (isset($data->nama)) {
             $return = '<a href="' .
-                $this->createUrl('pilihitemkeu', ['id' => $data->id]) .
-                '" class="pilih itemkeu">' . $data->nama . '</a>';
+            $this->createUrl('pilihitemkeu', ['id' => $data->id]) .
+            '" class="pilih itemkeu">' . $data->nama . '</a>';
         }
         return $return;
     }
@@ -878,15 +929,15 @@ class ReportController extends Controller
 
         $text      = $model->toCsv();
         $namaStruk = '';
-        if (!empty($model->strukLv1)) :
+        if (!empty($model->strukLv1)):
             $strukLv1 = StrukturBarang::model()->findByPk($model->strukLv1);
             $namaStruk .= $strukLv1->nama;
         endif;
-        if (!empty($model->strukLv2)) :
+        if (!empty($model->strukLv2)):
             $strukLv2 = StrukturBarang::model()->findByPk($model->strukLv2);
             $namaStruk .= '_' . $strukLv2->nama;
         endif;
-        if (!empty($model->strukLv3)) :
+        if (!empty($model->strukLv3)):
             $strukLv3 = StrukturBarang::model()->findByPk($model->strukLv3);
             $namaStruk .= '_' . $strukLv3->nama;
         endif;
@@ -938,7 +989,17 @@ class ReportController extends Controller
         $waktu          = date('Y-m-d H:i:s');
         $waktuCetak     = date_format(date_create_from_format('Y-m-d H:i:s', $waktu), 'dmY His');
         $listNamaKertas = ReportUmurBarangForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
         $mpdf->WriteHTML($this->renderPartial('_umurbarang_pdf', [
             'model'      => $model,
             'report'     => $report,
@@ -1030,7 +1091,17 @@ class ReportController extends Controller
         $waktu          = date('Y-m-d H:i:s');
         $waktuCetak     = date_format(date_create_from_format('Y-m-d H:i:s', $waktu), 'dmY His');
         $listNamaKertas = ReportPlsForm::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+
         $mpdf->WriteHTML($this->renderPartial('_pls_pdf', [
             'model'      => $model,
             'report'     => $report,
@@ -1365,7 +1436,17 @@ class ReportController extends Controller
         }
         $listNamaKertas = ReportRekapDiskonForm::listKertas();
         // require_once __DIR__ . '/../vendor/autoload.php';
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $mpdf->WriteHTML($this->renderPartial('_rekap_diskon_pdf', [
             'report'     => $report,
             'config'     => $branchConfig,
@@ -1641,7 +1722,17 @@ class ReportController extends Controller
          */
         $listNamaKertas = ReportStockOpnameForm::listKertas();
         // require_once __DIR__ . '/../vendor/autoload.php';
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $mpdf->WriteHTML($this->renderPartial('_stockopname_pdf', [
             'report'               => $report,
             'nilaiDenganHargaJual' => ReportStockOpnameForm::isHitungDenganHargaJual(),
@@ -1863,7 +1954,17 @@ class ReportController extends Controller
          */
         $listNamaKertas = ReportPenjualanPerStrukturForm::listKertas();
         // require_once __DIR__ . '/../vendor/autoload.php';
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $mpdf->WriteHTML($this->renderPartial($viewReport, [
             'report'       => $report,
             'config'       => $branchConfig,
@@ -2020,7 +2121,17 @@ class ReportController extends Controller
 
         // require_once __DIR__ . '/../vendor/autoload.php';
         $listNamaKertas = ReportHarian01Form::listKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $mpdf->WriteHTML($this->renderPartial('harian_01_detail_pdf', [
             'report' => $report,
         ], true));

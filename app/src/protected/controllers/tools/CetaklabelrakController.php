@@ -60,7 +60,6 @@ class CetaklabelrakController extends Controller
          * Persiapan render PDF
          */
         error_reporting(0); // Masih ada error di library Mpdf. Sembunyikan error dahulu, perbaiki kemudian :senyum
-        require_once __DIR__ . '/../../vendor/autoload.php';
 
         set_time_limit(0);
         $tanggalCetak   = date('dmY His');
@@ -73,17 +72,33 @@ class CetaklabelrakController extends Controller
         $listNamaKertas = CetakLabelRakLayoutForm::listNamaKertas();
 
         //$mPDF1 = Yii::app()->ePdf->mpdf('utf-8', $listNamaKertas[$layout['kertasId']], 0, '', 7, 7, 7, 7, 9, 9);
-        $mpdf = new \Mpdf\Mpdf([
-            'mode'          => 'utf-8',
-            'format'        => $listNamaKertas[$layout['kertasId']],
-            'tempDir'       => __DIR__ . '/../../runtime/',
-            'margin_left'   => 7,
-            'margin_right'  => 7,
-            'margin_top'    => 5,
-            'margin_bottom' => 5,
-            'margin_header' => 9,
-            'margin_footer' => 9,
-        ]);
+        // $mpdf = new \Mpdf\Mpdf([
+        //     'mode'          => 'utf-8',
+        //     'format'        => $listNamaKertas[$layout['kertasId']],
+        //     'tempDir'       => __DIR__ . '/../../runtime/',
+        //     'margin_left'   => 7,
+        //     'margin_right'  => 7,
+        //     'margin_top'    => 5,
+        //     'margin_bottom' => 5,
+        //     'margin_header' => 9,
+        //     'margin_footer' => 9,
+        // ]);
+        $cfg = array_merge(
+            [
+                'mode'          => 'utf-8',
+                'format'        => $listNamaKertas[$layout['kertasId']],
+                'tempDir'       => __DIR__ . '/../../runtime/',
+                'margin_left'   => 7,
+                'margin_right'  => 7,
+                'margin_top'    => 5,
+                'margin_bottom' => 5,
+                'margin_header' => 9,
+                'margin_footer' => 9,
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         
         //$mpdf->showImageErrors = true;
 

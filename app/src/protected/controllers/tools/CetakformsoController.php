@@ -73,19 +73,31 @@ class CetakformsoController extends Controller
         /*
          * Persiapan render PDF
          */
-        require_once __DIR__ . '/../../vendor/autoload.php';
 
         $tanggalCetak   = date('d-m-Y H:i:s');
         $listNamaKertas = CetakStockOpnameForm::listNamaKertas();
 
-        $mpdf = new \Mpdf\Mpdf([
-            'mode'         => 'utf-8',
-            'format'       => $listNamaKertas[$modelForm->kertas],
-            'tempDir'      => __DIR__ . '/../../runtime/',
-            'margin_left'  => 7,
-            'margin_right' => 7,
-            'margin_top'   => 7,
-        ]);
+        // $mpdf = new \Mpdf\Mpdf([
+        //     'mode'         => 'utf-8',
+        //     'format'       => $listNamaKertas[$modelForm->kertas],
+        //     'tempDir'      => __DIR__ . '/../../runtime/',
+        //     'margin_left'  => 7,
+        //     'margin_right' => 7,
+        //     'margin_top'   => 7,
+        // ]);
+        $cfg = array_merge(
+            [
+                'mode'         => 'utf-8',
+                'format'       => $listNamaKertas[$modelForm->kertas],
+                'tempDir'      => __DIR__ . '/../../runtime/',
+                'margin_left'  => 7,
+                'margin_right' => 7,
+                'margin_top'   => 7,
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $mpdf->WriteHTML($this->renderPartial(
             '_form_so_pdf',
             [

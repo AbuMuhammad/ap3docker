@@ -452,7 +452,17 @@ class ReturpembelianController extends Controller
          */
         // require_once __DIR__ . '/../vendor/autoload.php';
         $listNamaKertas = ReturPembelian::listNamaKertas();
-        $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        // $mpdf           = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => $listNamaKertas[$kertas], 'tempDir' => __DIR__ . '/../runtime/']);
+        $cfg = array_merge(
+            [
+                'mode'    => 'utf-8',
+                'format'  => $listNamaKertas[$kertas],
+                'tempDir' => __DIR__ . '/../runtime/',
+            ],
+            CustomFontPdfHelper::config()
+        );
+        $mpdf = new \Mpdf\Mpdf($cfg);
+        
         $viewCetak      = '_pdf';
         if ($draft) {
             $viewCetak = '_pdf_draft';
