@@ -1000,7 +1000,7 @@ class Penjualan extends CActiveRecord
         $command->join(HargaPokokPenjualan::model()->tableName() . ' hpp', 'pd.id=hpp.penjualan_detail_id');
 
         $penjualan = $command->queryRow();
-        return $penjualan['margin'];
+        return $penjualan['margin'] ?? 0;
     }
 
     /**
