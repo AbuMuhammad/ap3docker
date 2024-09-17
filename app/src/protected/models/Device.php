@@ -260,7 +260,9 @@ class Device extends CActiveRecord
         if ($this->cashdrawer_kick == 1) {
             $this->bukaLaciKas();
         }
-        $perintahPrinter = "-H {$this->address} -P {$this->nama}";
+        
+        $address = $this->address == 'DOCKERHOSTIP' ? getenv('DOCKERHOSTIP') : $this->address;
+        $perintahPrinter = "-H {$address} -P {$this->nama}";
 
         $perintah = "echo \"{$this->revisiText($text)}\" |lpr {$perintahPrinter} -l";
         exec($perintah, $output);
