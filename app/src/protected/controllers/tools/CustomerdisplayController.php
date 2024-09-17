@@ -46,7 +46,7 @@ class CustomerdisplayController extends Controller
         $configCD = Config::model()->find('nama=:nama', [':nama' => 'customerdisplay.wsport']);
         $wsPort   = $configCD->nilai;
         $ws       = [
-            'ip'   => $_SERVER['SERVER_ADDR'],
+            'ip'   => getenv('CONTAINERIP'), //$_SERVER['SERVER_ADDR'],
             'port' => $wsPort,
         ];
         $user = [

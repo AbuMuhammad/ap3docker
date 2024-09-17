@@ -6,6 +6,8 @@ FROM php:8.2.10-fpm-bookworm
 #     --with-jpeg \
 #     --with-freetype
 RUN apt update && apt install -y \
+    libssl-dev \
+    libcurl4-openssl-dev \
     zlib1g-dev \
     libpng-dev \
     libonig-dev \
