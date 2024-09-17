@@ -45,8 +45,11 @@ class CustomerdisplayController extends Controller
     {
         $configCD = Config::model()->find('nama=:nama', [':nama' => 'customerdisplay.wsport']);
         $wsPort   = $configCD->nilai;
-        $ws       = [
-            'ip'   => getenv('CONTAINERIP'), //$_SERVER['SERVER_ADDR'],
+
+        $parsedUrl = parse_url($_SERVER['HTTP_REFERER']);
+        // Yii::log("Referer: ".$parsedUrl['host']);
+        $ws = [
+            'ip'   => $parsedUrl['host'], //$_SERVER['SERVER_ADDR'],
             'port' => $wsPort,
         ];
         $user = [
@@ -140,9 +143,9 @@ class CustomerdisplayController extends Controller
         require_once __DIR__ . '/BrosurpromoController.php';
         $assetPath = BrosurpromoController::ASSETS_PATH;
         // Only one
-        $imgs      = [];
+        $imgs = [];
         foreach (glob($assetPath . 'logo*.*', GLOB_BRACE) as $filename) {
-            $imgs[] =  $this->createUrl($filename);
+            $imgs[] = $this->createUrl($filename);
         }
         if (isset($imgs[0])) {
             if (file_exists(realpath($filename))) {
@@ -158,7 +161,7 @@ class CustomerdisplayController extends Controller
         $assetPath = BrosurpromoController::ASSETS_PATH;
         $imgs      = [];
         foreach (glob($assetPath . 'brosur*.*', GLOB_BRACE) as $filename) {
-            $imgs[] =  $this->createUrl($filename);
+            $imgs[] = $this->createUrl($filename);
         }
         return $imgs;
     }
