@@ -60,6 +60,6 @@ RUN groupadd --system cups && useradd --system --gid cups cups
 
 # Expose CUPS port
 # EXPOSE 631
-
+EXPOSE 9000 48080
 # Start CUPS service
 # CMD ["/usr/sbin/cupsd", "-f"]
