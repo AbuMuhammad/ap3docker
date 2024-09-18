@@ -29,9 +29,9 @@ services:
       - ./mariadb/conf.d/my.cnf:/etc/my.cnf
       # - ./tmp:/tmp
     environment:
-      MYSQL_ROOT_PASSWORD: dzunnurain
+      MYSQL_ROOT_PASSWORD: adminpassword
       #MYSQL_DATABASE: <DATABASENAME>
-      MYSQL_USER: maqshof
-      MYSQL_PASSWORD: dzunnurain
+      MYSQL_USER: admimn
+      MYSQL_PASSWORD: adminpassword
       MARIADB_AUTO_UPGRADE: 1
       TZ: Asia/Jakarta
