@@ -1,6 +1,6 @@
 #!/bin/sh
 
-chmod a+w /var/www/html/public/asset /var/www/html/src/protected/runtime
+chmod a+w /var/www/html/public/assets /var/www/html/src/protected/runtime
 # Start php-fpm in the background
 nohup php-fpm > /var/log/php-fpm.log 2>&1 &
 
