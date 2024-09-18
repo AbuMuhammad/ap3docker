@@ -1,4 +1,4 @@
-CREATE USER 'admin'@'%' IDENTIFIED BY 'adminpassword';
+CREATE OR REPLACE USER 'admin'@'%' IDENTIFIED BY 'adminpassword';
 GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
