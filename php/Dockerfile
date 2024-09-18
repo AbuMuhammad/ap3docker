@@ -44,7 +44,8 @@ WORKDIR /var/www/html
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 COPY ./app/composer.* ./
 RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
-
+COPY ./app .
+RUN composer dump-autoload --optimize
 # RUN apk add cups 
 
 # Create a user for running CUPS
