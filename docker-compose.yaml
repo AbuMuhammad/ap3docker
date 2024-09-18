@@ -3,24 +3,24 @@ services:
   web:
     image: nginx:latest
     ports:
-      - "8910:80"
+      - "${WEB_PORT}:80"
     volumes:
       - ./app/:/var/www/html/
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
   db:
     image: mariadb:latest
     ports:
-      - "3307:3306"
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ./mariadb/init:/docker-entrypoint-initdb.d
       - ./mariadb/db:/var/lib/mysql
       - ./mariadb/conf.d/my.cnf:/etc/my.cnf
       # - ./tmp:/tmp
     environment:
-      MYSQL_ROOT_PASSWORD: adminpassword
-      MYSQL_DATABASE: ahadpos3
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: adminpassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MARIADB_AUTO_UPGRADE: 1
       TZ: Asia/Jakarta
   app:
@@ -32,7 +32,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "48080:48080"
+      - "${WS_PORT}:48080"
     volumes:
       - ./app/:/var/www/html/
       - ./dockerhostip.sh:/dockerhostip.sh
